@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import { Settings } from 'lucide-react';
 
 const App: React.FC = () => {
   const token = localStorage.getItem('token');
@@ -13,6 +14,7 @@ const App: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
+      <Route path='/setting' element={token ? <Settings/> :<Navigate to="/login"/>}/>
     </Routes>
   );
 }
