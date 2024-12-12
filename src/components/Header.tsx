@@ -38,10 +38,6 @@ const Header: React.FC = () => {
             <Home className="h-4 w-4 inline-block mr-1 text-cyan-400" />
             Home
           </a>
-          <a href="/profile" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center">
-            <User className="h-4 w-4 inline-block mr-1 text-cyan-400" />
-            Profile
-          </a>
           <a href="/settings" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center">
             <Settings className="h-4 w-4 inline-block mr-1 text-cyan-400" />
             Settings
