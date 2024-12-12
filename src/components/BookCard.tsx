@@ -17,17 +17,10 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
-  const handleCardClick = () => {
-    if (book.filePath) {
-      window.open(book.filePath, '_blank');
-    }
-  };
-
   return (
     <Card
       className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300 bg-center bg-cover bg-no-repeat cursor-pointer text-center"
       style={{ backgroundImage: book.coverImagePath ? `url(${book.coverImagePath})` : 'none' }}
-      onClick={handleCardClick}
     >
       <CardHeader className="bg-opacity-75 bg-black p-4">
         <CardTitle className="text-lg text-white">{book.title}</CardTitle>
@@ -37,17 +30,6 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         <p className="text-sm text-gray-200 mb-4">{book.description}</p>
       </CardContent>
       <CardFooter className="bg-opacity-75 bg-black p-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="w-full bg-cyan-500 text-white hover:bg-cyan-600 hover:text-white"
-          onClick={(e) => {
-            e.stopPropagation(); 
-            handleCardClick();
-          }}
-        >
-          Read Now
-        </Button>
       </CardFooter>
     </Card>
   );
