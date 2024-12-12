@@ -19,7 +19,7 @@ interface BookCardProps {
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
     <div
-      className="relative w-64 h-96 bg-gray-100 border border-gray-300 shadow-xl rounded-md flex flex-col overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-300"
+      className="relative w-64 h-72 bg-gray-100 border border-gray-300 shadow-xl rounded-md flex flex-col overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-300"
       style={{
         backgroundImage: book.coverImagePath ? `url(${book.coverImagePath})` : 'none',
         backgroundSize: 'cover',
