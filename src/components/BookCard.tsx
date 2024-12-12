@@ -27,7 +27,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       }}
     >
       {/* Spine */}
-      <div className="absolute top-0 left-0 w-4 h-full bg-gray-800 shadow-inner"></div>
+      <div className="absolute top-0 left-0 w-4 h-full bg-cyan-700 shadow-inner"></div>
 
       {/* Book Content */}
       <div className="absolute top-0 right-0 w-[calc(100%-1rem)] h-full bg-opacity-75 bg-black p-4 flex flex-col justify-between text-white">
@@ -43,7 +43,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         </p>
 
         {/* Book Footer */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-center items-center ">
           <Button className="bg-cyan-500 hover:bg-cyan-600 text-sm">Read Me</Button>
         </div>
       </div>
