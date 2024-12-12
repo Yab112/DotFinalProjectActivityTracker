@@ -44,8 +44,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
 
         {/* Book Footer */}
         <div className="flex justify-between items-center">
-          <span className="text-cyan-400 font-semibold">${book.price.toFixed(2)}</span>
-          <Button className="bg-cyan-500 hover:bg-cyan-600 text-sm">Read More</Button>
+          <Button className="bg-cyan-500 hover:bg-cyan-600 text-sm">Read Me</Button>
         </div>
       </div>
     </div>
