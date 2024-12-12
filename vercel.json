@@ -1,9 +1,0 @@
-{
-    "builds": [
-      {
-        "src": "pnpm run build",
-        "use": "@vercel/node"
-      }
-    ]
-  }
-  
