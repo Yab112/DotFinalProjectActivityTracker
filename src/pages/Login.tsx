@@ -4,7 +4,7 @@ import { useToast } from "../hooks/use-toast";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-interface FormData{
+interface FormData {
   email: string;
   password: string;
 }
@@ -17,6 +17,7 @@ const LoginPage: React.FC = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -48,26 +49,30 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!validate()) return;
-  
+
+    setLoading(true); // Set loading to true
+
     try {
-      const response = await axios.post('https://dotbackendexpresswithjs.onrender.com/api/auth/login', formData);
+      const response = await axios.post(
+        "https://dotbackendexpresswithjs.onrender.com/api/auth/login",
+        formData
+      );
       const { userDetails } = response.data;
       console.log("Backend Response: ", response.data);
-      
+
       if (userDetails && userDetails.token) {
-  
-        localStorage.setItem('token', userDetails.token);
-        localStorage.setItem('name', userDetails.username);
-        localStorage.setItem('id', userDetails.id);
+        localStorage.setItem("token", userDetails.token);
+        localStorage.setItem("name", userDetails.username);
+        localStorage.setItem("id", userDetails.id);
         toast({
           title: "Authorized",
           description: `Welcome back, ${userDetails.username}!`,
         });
-  
+
         console.log("Navigating to /home...");
-        setTimeout(() => navigate('/home'), 0); // Ensure navigation
+        setTimeout(() => navigate("/home"), 0);
       } else {
         toast({
           title: "Unauthorized",
@@ -75,14 +80,15 @@ const LoginPage: React.FC = () => {
         });
       }
     } catch (error) {
-      console.error('Failed to login', error);
+      console.error("Failed to login", error);
       toast({
         title: "Unauthorized",
         description: "Failed to login. Please try again.",
       });
+    } finally {
+      setLoading(false); // Set loading to false
     }
   };
-  
 
   return (
     <div className="mx-auto p-4 h-screen flex items-center justify-center bg-slate-100">
@@ -128,9 +134,14 @@ const LoginPage: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-blue-600 rounded-lg text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              disabled={loading} // Disable button when loading
+              className={`w-full py-2 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
             <p className="text-sm text-center text-gray-700">
               Don't have an account?{" "}
