@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://dotbackendexpresswithjs.onrender.com/api/auth/login",
+        "https://dotbackendexpresswithjs.vercel.app/api/auth/login",
         formData
       );
       const { userDetails } = response.data;
@@ -86,7 +86,7 @@ const LoginPage: React.FC = () => {
         description: "Failed to login. Please try again.",
       });
     } finally {
-      setLoading(false); // Set loading to false
+      setLoading(false); 
     }
   };
 

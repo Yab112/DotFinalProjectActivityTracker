@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from '../src/hooks/use-toast';
 
-const API_BASE_URL = 'https://dotbackendexpresswithjs.onrender.com';
+const API_BASE_URL = 'https://dotbackendexpresswithjs.vercel.app/';
 
 export const fetchBooks = async () => {
   try {
@@ -72,10 +72,19 @@ export const createBook = async (bookData: BookData): Promise<BookResponse> => {
         description: response.data.message,
       });
     }
-    console.log('Book created:', response.data);
+
+    toast({
+      title: 'success',
+      description: response.data.message,
+    });
+
     return response.data;
   } catch (error) {
     console.error('Failed to create book:', error);
+    toast({
+      title: 'Error',
+      description: 'Failed to create book. Please try again',
+    });
     throw error;
   }
 };

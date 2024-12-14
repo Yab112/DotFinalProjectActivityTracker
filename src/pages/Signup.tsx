@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useToast } from "../hooks/use-toast";
 import axios from 'axios';
+import { set } from 'react-hook-form';
 
 interface FormData {
   username: string;
@@ -12,6 +13,7 @@ interface FormData {
 }
 
 const MyForm: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     username: '',
     email: '',
@@ -31,12 +33,13 @@ const MyForm: React.FC = () => {
   e.preventDefault();
 
   try {
-    const response = await axios.post('https://dotbackendexpresswithjs.onrender.com/api/auth/register', formData, {
+    setLoading(true);
+    const response = await axios.post('https://dotbackendexpresswithjs.vercel.app/api/auth/register', formData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
+    setLoading(false);
     navigate('/login');
     toast({
       title: "Success",
@@ -46,12 +49,14 @@ const MyForm: React.FC = () => {
     console.error("Error details:", error);
 
     if (error.response) {
+      setLoading(false);
       console.error("Server responded with:", error.response.data);
       toast({
         title: "Error",
         description: error.response.data.message || "An error occurred",
       });
     } else {
+      setLoading(false);
       console.error("Request failed:", error.message);
       toast({
         title: "Error",
@@ -99,9 +104,14 @@ const MyForm: React.FC = () => {
             />
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              disabled={loading} 
+              className={`w-full py-2 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
             >
-              Register
+              {loading ? "registering..." : "SignUp"}
             </button>
           </form>
         </div>
