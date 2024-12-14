@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from '../src/hooks/use-toast';
 
-const API_BASE_URL = 'https://dotbackendexpresswithjs.vercel.app/';
+const API_BASE_URL = 'https://dotbackendexpresswithjs.vercel.app';
 
 export const fetchBooks = async () => {
   try {
