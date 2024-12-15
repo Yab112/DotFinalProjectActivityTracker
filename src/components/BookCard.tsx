@@ -1,9 +1,11 @@
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Trash } from "lucide-react";
 import { Button } from "./ui/button";
+import { deleteBook } from "../../Services/BookService";
+import { toast } from "../hooks/use-toast";
 
 interface Book {
-  id: number;
+  _id: number;
   title: string;
   author: string;
   price: number;
@@ -16,21 +18,40 @@ interface BookCardProps {
   book: Book;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+const BookCard: React.FC<BookCardProps> = ({ book}) => {
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation(); 
+
+    try {
+      await deleteBook(book._id);
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
+
   return (
     <div
-      className="relative w-64 h-72 bg-gray-100 border border-gray-300 shadow-xl rounded-md flex flex-col overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-300"
+      className="group relative w-64 h-72 bg-gray-100 border border-gray-300 shadow-xl rounded-md flex flex-col overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-300"
       style={{
-        backgroundImage: book.coverImagePath ? `url(${book.coverImagePath})` : 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundImage: book.coverImagePath ? `url(${book.coverImagePath})` : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
+      onClick={() => console.log(`Book ID: ${book._id}`)}
     >
       {/* Spine */}
-      <div className="absolute top-0 left-0 w-4 h-full bg-cyan-700 shadow-inner"></div>
-      
-      {/* Book Content */}
-      <div className="absolute top-0 right-0 w-[calc(100%-1rem)] h-full bg-opacity-75 bg-black p-4 flex flex-col justify-between text-white">
+      <div className="absolute top-0 left-0 w-2 h-full bg-cyan-200 shadow-inner"></div>
+
+      {/* Delete Icon */}
+      <button
+        className="absolute top-2 right-2 z-10 bg-red-500 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        onClick={handleDelete}
+      >
+        <Trash size={16} />
+      </button>
+
+      {/* Card Content */}
+      <div className="absolute top-0 right-0 w-[calc(100%-0.3rem)] h-full bg-opacity-75 bg-black p-4 flex flex-col justify-between text-white">
         {/* Book Header */}
         <div>
           <h2 className="text-lg font-bold mb-2">{book.title}</h2>

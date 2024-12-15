@@ -3,9 +3,11 @@ import BookCard from "./BookCard";
 import { fetchBooks } from "../../Services/BookService";
 import AddBookDialog from "./AddBookDialog";
 import { List, BookDownIcon } from "lucide-react";
+import { toast } from "../hooks/use-toast";
+import { on } from "events";
 
 interface Book {
-  id: number;
+  _id: number;
   title: string;
   author: string;
   price: number;
@@ -16,20 +18,30 @@ interface Book {
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getBooks = async () => {
       try {
         const booksData = await fetchBooks();
+        toast({
+          title: "Success",
+          description: "Books loaded successfully.",
+        });
+
         setBooks(booksData);
       } catch (err) {
-        setError("Failed to load books. Please try again later.");
+
+        toast({
+          title: "Error",
+          description: "Failed to load books. Please try again later.",
+          variant: "destructive",
+        });
       }
     };
 
     getBooks();
   }, []);
+
 
   return (
     <section className="container mx-auto px-4 py-12">

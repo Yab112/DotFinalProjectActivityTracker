@@ -88,3 +88,34 @@ export const createBook = async (bookData: BookData): Promise<BookResponse> => {
     throw error;
   }
 };
+
+export const deleteBook = async (bookId: number): Promise<void> => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Authorization token is missing');
+    }
+
+    await axios.delete(`${API_BASE_URL}/api/books/delete/${bookId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    toast({
+      title: 'Book deleted',
+      description: 'Book has been deleted from your library.',
+    });
+  } catch (error) {
+    console.error('Failed to delete book:', error);
+    toast({
+      title: 'Error',
+      description: 'Failed to delete book. Please try again.',
+    });
+    throw error;
+  }
+};
+
+
+
+
