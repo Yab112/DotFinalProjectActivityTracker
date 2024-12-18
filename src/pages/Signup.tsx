@@ -35,7 +35,7 @@ const MyForm: React.FC = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://dotbackendexpresswithjs.vercel.app/api/auth/register",
+        "https://dotbackendexpresswithjs-4cec.vercel.app/api/auth/register",
         formData,
         {
           headers: {

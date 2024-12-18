@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://dotbackendexpresswithjs.vercel.app/api/auth/login",
+        "https://dotbackendexpresswithjs-4cec.vercel.app/api/auth/login",
         formData
       );
       const { userDetails } = response.data;
