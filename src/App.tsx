@@ -4,6 +4,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import SettingsPage from './pages/Settings';
+import VerifyEmail from './pages/VerifyEmail';
+import RegistrationSuccess from './pages/RegistrationSuccess';
+import EmailVerified from './pages/EmailVerified';
 
 const App: React.FC = () => {
   const token = localStorage.getItem('token');
@@ -15,6 +18,9 @@ const App: React.FC = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
       <Route path='/settings' element={token ? <SettingsPage /> :<Navigate to="/login"/>}/>
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/registration-success" element={<RegistrationSuccess />} />
+      <Route path="/email-verified" element={<EmailVerified />} />
     </Routes>
   );
 }

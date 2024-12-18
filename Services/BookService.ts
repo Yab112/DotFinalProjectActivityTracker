@@ -96,7 +96,7 @@ export const deleteBook = async (bookId: number): Promise<void> => {
       throw new Error('Authorization token is missing');
     }
 
-    await axios.delete(`${API_BASE_URL}/api/books/delete/${bookId}`, {
+    await axios.delete(`http://localhost:5000/api/books/delete/${bookId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

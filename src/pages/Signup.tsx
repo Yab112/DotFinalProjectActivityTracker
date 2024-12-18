@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "../hooks/use-toast";
-import axios from 'axios';
-import { set } from 'react-hook-form';
+import axios from "axios";
 
 interface FormData {
   username: string;
@@ -15,10 +14,11 @@ interface FormData {
 const MyForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    username: '',
-    email: '',
-    password: '',
-    profilePicture: ''
+    // base_url = "https://dotbackendexpresswithjs.vercel.app"
+    username: "",
+    email: "",
+    password: "",
+    profilePicture: "",
   });
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -30,42 +30,51 @@ const MyForm: React.FC = () => {
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    setLoading(true);
-    const response = await axios.post('https://dotbackendexpresswithjs.vercel.app/api/auth/register', formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    setLoading(false);
-    navigate('/login');
-    toast({
-      title: "Success",
-      description: `${response.data.message}`,
-    });
-  } catch (error: any) {
-    console.error("Error details:", error);
-
-    if (error.response) {
+    e.preventDefault();
+  
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://dotbackendexpresswithjs.vercel.app/api/auth/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setLoading(false);
-      console.error("Server responded with:", error.response.data);
-      toast({
-        title: "Error",
-        description: error.response.data.message || "An error occurred",
-      });
-    } else {
+  
+      // Redirect to the registration success page
+      if (response.status === 201) {
+        
+        toast({
+          title: "Success",
+          description: "Registration successful!",
+        });
+        navigate("/registration-success");
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to register. Please try again.",
+        });
+      }
+    } catch (error: any) {
+      console.error("Error details:", error);
       setLoading(false);
-      console.error("Request failed:", error.message);
-      toast({
-        title: "Error",
-        description: "Failed to register. Please try again.",
-      });
+      if (error.response) {
+        toast({
+          title: "Error",
+          description: error.response.data.message || "An error occurred",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to register. Please try again.",
+        });
+      }
     }
-  }
-};
-
+  };
   
 
   return (
@@ -73,7 +82,9 @@ const MyForm: React.FC = () => {
       <div className="flex max-w-7xl h-96 w-full bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-xl overflow-hidden">
         {/* Form Section */}
         <div className="w-1/3 p-6 flex flex-col justify-center space-y-6 bg-white">
-          <h2 className="text-3xl font-bold text-gray-800 text-center">Create an Account</h2>
+          <h2 className="text-3xl font-bold text-gray-800 text-center">
+            Create an Account
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -104,7 +115,7 @@ const MyForm: React.FC = () => {
             />
             <button
               type="submit"
-              disabled={loading} 
+              disabled={loading}
               className={`w-full py-2 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
@@ -117,11 +128,17 @@ const MyForm: React.FC = () => {
         </div>
 
         {/* Illustration Section */}
-        <div className="w-1/2 p-6 flex flex-col justify-center items-center bg-cover bg-center" >
-          <h3 className="text-4xl font-bold text-white text-center">Welcome to Our Community</h3>
-          <p className="text-lg text-white mt-4 text-center">Join us and Store YOur world.Store, Read, and grow toget Here.</p>
+        <div className="w-1/2 p-6 flex flex-col justify-center items-center bg-cover bg-center">
+          <h3 className="text-4xl font-bold text-white text-center">
+            Welcome to Our Community
+          </h3>
+          <p className="text-lg text-white mt-4 text-center">
+            Join us and Store YOur world.Store, Read, and grow toget Here.
+          </p>
           <div className="mt-6">
-            <span role="img" aria-label="sparkles" className="text-6xl">✨</span>
+            <span role="img" aria-label="sparkles" className="text-6xl">
+              ✨
+            </span>
           </div>
         </div>
       </div>
