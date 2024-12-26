@@ -17,7 +17,7 @@ const VerifyEmail: React.FC = () => {
     const verifyEmail = async () => {
       try {
         const response = await axios.get(
-          `https://dotbackendexpresswithjs-4cec.vercel.app/api/auth/verify-email?token=${token}`
+          `http://localhost:5001/api/auth/verify-email?token=${token}`
         );
         toast.success(response.data.message || "Email verified successfully!", {
           position: "top-center",
@@ -60,7 +60,7 @@ const VerifyEmail: React.FC = () => {
 
       setLoading(true);
       const response = await axios.post(
-        "https://dotbackendexpresswithjs-4cec.vercel.app/api/auth/resend-verification-email",
+        "http://localhost:5001/api/auth/resend-verification-email",
         { email }
       );
       toast.success(

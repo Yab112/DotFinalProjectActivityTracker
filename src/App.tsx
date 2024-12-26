@@ -7,6 +7,7 @@ import SettingsPage from './pages/Settings';
 import VerifyEmail from './pages/VerifyEmail';
 import RegistrationSuccess from './pages/RegistrationSuccess';
 import EmailVerified from './pages/EmailVerified';
+import SetToken from './pages/SetToken';
 
 const App: React.FC = () => {
   const token = localStorage.getItem('token');
@@ -21,6 +22,7 @@ const App: React.FC = () => {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/registration-success" element={<RegistrationSuccess />} />
       <Route path="/email-verified" element={<EmailVerified />} />
+      <Route path="/set-token" element={<SetToken/>} />
     </Routes>
   );
 }

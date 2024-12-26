@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "../hooks/use-toast";
 import axios from "axios";
@@ -31,7 +31,7 @@ const MyForm: React.FC = () => {
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     try {
       setLoading(true);
       const response = await axios.post(
@@ -44,10 +44,9 @@ const MyForm: React.FC = () => {
         }
       );
       setLoading(false);
-  
+
       // Redirect to the registration success page
       if (response.status === 201) {
-        
         toast({
           title: "Success",
           description: "Registration successful!",
@@ -75,13 +74,12 @@ const MyForm: React.FC = () => {
       }
     }
   };
-  
 
   return (
     <div className="container mx-auto flex items-center justify-center h-screen">
-      <div className="flex max-w-7xl h-96 w-full bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-xl overflow-hidden">
+      <div className="flex max-w-7xl h-auto w-full bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-xl overflow-hidden">
         {/* Form Section */}
-        <div className="w-1/3 p-6 flex flex-col justify-center space-y-6 bg-white">
+        <div className="w-1/3  flex flex-col justify-center space-y-6 bg-white p-4">
           <h2 className="text-3xl font-bold text-gray-800 text-center">
             Create an Account
           </h2>
@@ -125,6 +123,24 @@ const MyForm: React.FC = () => {
               {loading ? "registering..." : "SignUp"}
             </button>
           </form>
+          {/* Google Signup Button */}
+          <a
+            href="http://localhost:5001/api/auth/google"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-gray-100"
+          >
+            <img
+              src="/google-icon-logo-svgrepo-com.svg"
+              alt="Google Logo"
+              className="w-5 h-5"
+            />
+            Signup with Google
+          </a>
+          <p className="text-sm text-center text-gray-700">
+                        Alread have an account?{" "}
+                        <Link to="/login" className="text-blue-600 hover:underline">
+                          login here
+                        </Link>
+                      </p>
         </div>
 
         {/* Illustration Section */}

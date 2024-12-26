@@ -143,6 +143,17 @@ const LoginPage: React.FC = () => {
             >
               {loading ? "Logging in..." : "Login"}
             </button>
+            <a
+            href="http://localhost:5001/api/auth/google"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-gray-100"
+          >
+            <img
+              src="/google-icon-logo-svgrepo-com.svg"
+              alt="Google Logo"
+              className="w-5 h-5"
+            />
+            Login with Google
+          </a>
             <p className="text-sm text-center text-gray-700">
               Don't have an account?{" "}
               <Link to="/signup" className="text-blue-600 hover:underline">
