@@ -8,7 +8,7 @@ import Header from '../components/Header'
 
 export default function SettingsPage() {
   return (
-    <div>
+    <div className='mt-14'>
         <Header />
         <SettingsLayout>
           <PersonalInfoSection />

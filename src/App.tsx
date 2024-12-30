@@ -20,8 +20,8 @@ const App: React.FC = () => {
       <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
       <Route path='/settings' element={token ? <SettingsPage /> :<Navigate to="/login"/>}/>
       <Route path="/verify-email" element={<VerifyEmail />} />
-      <Route path="/registration-success" element={<RegistrationSuccess />} />
-      <Route path="/email-verified" element={<EmailVerified />} />
+      <Route path="/registration-success" element={<RegistrationSuccess />}/>
+      <Route path="/email-verified" element={<EmailVerified />}/>
       <Route path="/set-token" element={<SetToken/>} />
     </Routes>
   );

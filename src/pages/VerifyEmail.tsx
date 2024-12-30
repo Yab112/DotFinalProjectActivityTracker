@@ -82,8 +82,8 @@ const VerifyEmail: React.FC = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="h-screen w-screen flex flex-col items-center justify-center">
         {loading ? (
-          <div>
-            <Loading type="spin" color="#007BFF" height={70} width={70} />
+          <div className="flex flex-col items-center justify-center">
+            <Loading type="spin" color="#007BFF" height={70} width={70} animate-bounce />
             <p className="text-gray-500 mt-4">Processing your request...</p>
           </div>
         ) : verified ? (
