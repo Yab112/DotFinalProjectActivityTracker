@@ -135,5 +135,28 @@
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
   }
+  /* For Chrome, Safari, and Edge */
+::-webkit-scrollbar {
+  width: 4px; /* width of the scrollbar */
+  height: 10px; /* height of horizontal scrollbar */
 }
 
+::-webkit-scrollbar-track {
+  background: #07411a; /* color of the scrollbar track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #48c659; /* color of the draggable thumb */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* color when hovering over the thumb */
+}
+
+::-webkit-scrollbar-corner {
+  background: #f1f1f1; /* background color of the corner where two scrollbars meet */
+}
+
+}
