@@ -75,7 +75,7 @@ export default function ExerciseCard({
 
   const handledelete = async (id: string) => {
     try {
-      const response = await axios.delete(`http://localhost:5001/api/exercises/${id}`, {
+      const response = await axios.delete(`https://dot-final-project-exercise-tracker-backend.vercel.app/api/exercises/${id}`, {
         headers: {
           "Content-Type": "application/json",
         },
