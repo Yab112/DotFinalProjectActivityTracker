@@ -55,7 +55,10 @@ export const theme = {
 				'4': 'hsl(var(--chart-4))',
 				'5': 'hsl(var(--chart-5))'
 			}
-		}
+		},animation: {
+			bounce200: 'bounce 1s infinite 200ms',
+			bounce400: 'bounce 1s infinite 400ms',
+		},
 	}
 };
 

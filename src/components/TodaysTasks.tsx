@@ -14,16 +14,15 @@ interface Exercise {
   notes?: string;
   type?: string;
   location?: string;
+  _id: string;
 }
 
 interface TodaysTasksProps {
   exercises: Exercise[];
-  handleUpdateExercise: (updatedExercise: Exercise) => void;
 }
 
 export default function TodaysTasks({
-  exercises,
-  handleUpdateExercise,
+  exercises
 }: TodaysTasksProps) {
   const today = new Date();
   const todaysTasks = exercises.filter(
@@ -38,8 +37,7 @@ export default function TodaysTasks({
           <div className="relative" key={exercise.name}>
             <ExerciseCard
               exercise={exercise}
-              icon={Dumbbell} // Replace with appropriate icon map if necessary
-              onUpdate={handleUpdateExercise}
+              icon={Dumbbell} 
             />
             {/* Add animation for today's tasks */}
             <div className="absolute top-2 right-2">

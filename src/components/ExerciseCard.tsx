@@ -27,6 +27,9 @@ import { LucideIcon, Edit } from "lucide-react";
 import { EditExerciseForm } from "./EditExerciseForm";
 import { FaCheck, FaEdit, FaList, FaTimes, FaTrash } from "react-icons/fa";
 import { Flame, BarChart, Dumbbell, MapPin, StickyNote } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useToast } from "../hooks/use-toast";
 
 interface Exercise {
   name: string;
@@ -40,20 +43,20 @@ interface Exercise {
   notes?: string;
   type?: string;
   location?: string;
+  _id: string;
 }
 
 interface ExerciseCardProps {
   exercise: Exercise;
   icon: LucideIcon;
-  onUpdate: (updatedExercise: Exercise) => void;
 }
 
 export default function ExerciseCard({
   exercise,
   icon: Icon,
-  onUpdate,
 }: ExerciseCardProps) {
   const [showEditDialog, setShowEditDialog] = useState(false);
+   const { toast } = useToast();
 
   // Normalize dates to midnight for accurate comparison
   const today = new Date();
@@ -66,13 +69,39 @@ export default function ExerciseCard({
   const isMissed = isPast && !exercise.isCompleted;
 
   const handleUpdate = (updatedExercise: Exercise) => {
-    onUpdate(updatedExercise);
+    console.log("Updated exercise:", updatedExercise);
     setShowEditDialog(false);
+  };
+
+  const handledelete = async (id: string) => {
+    try {
+      const response = await axios.delete(`http://localhost:5001/api/exercises/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        toast({
+          title: "Error",
+          description: "exercise deleted successfully",
+        });
+      } else {
+        toast({
+          title:"Failed to delete exercise",
+          description: "Please try again",
+        })
+      }
+    } catch (error) {
+      toast({
+        title:"Failed to delete exercise",
+        description: "Please try again",
+      })
+    }
   };
 
   return (
     <Card
-      className={`w-full max-w-sm rounded-lg shadow-lg transform transition-all relative ${
+      className={`w-full max-w-lg rounded-lg shadow-lg transform transition-all relative ${
         isMissed
           ? "border-red-600 bg-transparent text-white"
           : "bg-black text-white border border-cyan-300"
@@ -101,10 +130,7 @@ export default function ExerciseCard({
                 <Button
                   variant="outline"
                   className="text-red-500/100 border-none bg-transparent hover:bg-transparent"
-                  onClick={() => {
-                    // Implement delete functionality here
-                    // Example: onDelete(exercise.id);
-                  }}
+                  onClick={() => handledelete(exercise._id)}
                 >
                   <FaTrash className="mr-2" /> Delete
                 </Button>
@@ -145,7 +171,7 @@ export default function ExerciseCard({
                 <DialogHeader>
                   <DialogTitle>Edit Exercise</DialogTitle>
                 </DialogHeader>
-                <EditExerciseForm exercise={exercise} onSubmit={handleUpdate} />
+                <EditExerciseForm exercise={exercise} />
               </DialogContent>
             </Dialog>
           )}
@@ -162,13 +188,13 @@ export default function ExerciseCard({
                 <p className="text-xs">Completed</p>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 bg-transparent border-1 border-sky-300">
                 <FaTimes className="text-red-600 text-lg" />
                 <p className="text-xs">Not Completed</p>
               </div>
             )}
           </Badge>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground ml-2">
             {exercise.duration} minutes
           </span>
         </div>
@@ -244,7 +270,7 @@ export default function ExerciseCard({
                 </span>
                 <strong className="font-medium text-teal-700">Location:</strong>
                 &nbsp;
-                <span >
+                <span>
                   {exercise.location
                     ? `At ${exercise.location} – Perfect spot for this activity!`
                     : "Anywhere you feel comfortable."}

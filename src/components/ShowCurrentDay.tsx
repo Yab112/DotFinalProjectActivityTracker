@@ -9,7 +9,7 @@ const ShowCurrentDay = (props: Props) => {
   const currentDay = format(new Date(), 'eeee, MMMM dd, yyyy')
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4 border border-cyan-500 rounded-lg p-6 mt-6 bg-gradient-to-r from-green-900 to-teal-800 shadow-lg'>
+    <div className='flex flex-col items-center justify-center gap-4 border border-cyan-500 rounded-lg p-6 mt-6 bg-gradient-to-r from-green-900 to-teal-800 shadow-lg w-[450px]'>
       {/* Icon and Title */}
       <div className='flex items-center gap-2'>
         <FaCalendarAlt size={40} className='text-slate-200 animate-pulse' />

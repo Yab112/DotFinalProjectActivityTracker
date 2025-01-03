@@ -86,15 +86,29 @@ const LoginPage: React.FC = () => {
         description: "Failed to login. Please try again.",
       });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
-    <div className="mx-auto p-4 h-screen flex items-center justify-center bg-slate-100">
-      <div className="flex max-w-7xl w-full h-96 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-xl overflow-hidden">
+    <div className="mx-auto p-4 h-screen flex items-center justify-center bg-black">
+      <div className="flex max-w-7xl w-full h-96 bg-transparent rounded-lg shadow-xl overflow-hidden border-green-500 border-2">
+      <div className="w-1/2 p-6 flex flex-col justify-center items-center bg-cover bg-center">
+          <h3 className="text-4xl font-bold text-green-400 text-center">
+            Welcome Back to Gym Tracker
+          </h3>
+          <p className="text-lg text-gray-300 mt-4 text-center">
+            Log in to track your workouts, monitor progress, and crush your
+            fitness goals. Your journey starts here!
+          </p>
+          <div className="mt-6">
+            <span role="img" aria-label="muscle" className="text-6xl">
+              💪
+            </span>
+          </div>
+        </div>
         {/* Form Section */}
-        <div className="w-1/3  p-6 flex flex-col items-center justify-center space-y-6 bg-white">
+        <div className="w-1/3  p-6 flex flex-col items-center justify-center space-y-6 bg-trnansparent">
           <h2 className="text-3xl font-semibold text-white">Login</h2>
           <form
             onSubmit={handleSubmit}
@@ -110,7 +124,7 @@ const LoginPage: React.FC = () => {
                 required
                 className={`w-full px-4 py-2 rounded-lg border ${
                   errors.email ? "border-red-500" : "border-gray-300"
-                } bg-gray-100 text-slate-700 focus:outline-none focus:border-blue-500`}
+                } bg-transparent text-slate-300 focus:outline-none focus:border-green-500`}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -126,7 +140,7 @@ const LoginPage: React.FC = () => {
                 required
                 className={`w-full px-4 py-2 rounded-lg border ${
                   errors.password ? "border-red-500" : "border-gray-300"
-                } bg-gray-100 text-slate-700 focus:outline-none focus:border-blue-500`}
+                } bg-transparent text-slate-300 focus:outline-none focus:border-green-500`}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password}</p>
@@ -144,16 +158,16 @@ const LoginPage: React.FC = () => {
               {loading ? "Logging in..." : "Login"}
             </button>
             <a
-            href="http://localhost:5001/api/auth/google"
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-gray-100"
-          >
-            <img
-              src="/google-icon-logo-svgrepo-com.svg"
-              alt="Google Logo"
-              className="w-5 h-5"
-            />
-            Login with Google
-          </a>
+              href="http://localhost:5001/api/auth/google"
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg shadow hover:bg-gray-100"
+            >
+              <img
+                src="/google-icon-logo-svgrepo-com.svg"
+                alt="Google Logo"
+                className="w-5 h-5"
+              />
+              Login with Google
+            </a>
             <p className="text-sm text-center text-gray-700">
               Don't have an account?{" "}
               <Link to="/signup" className="text-blue-600 hover:underline">
@@ -164,13 +178,7 @@ const LoginPage: React.FC = () => {
         </div>
 
         {/* Illustration Section */}
-        <div className="w-1/2 p-6 flex flex-col items-center justify-center bg-cover bg-">
-          <h3 className="text-white text-3xl font-bold">Welcome Back</h3>
-          <p className="text-white mt-4 text-lg text-center">
-            Login to access your account and explore amazing opportunities with
-            us.
-          </p>
-        </div>
+       
       </div>
     </div>
   );
