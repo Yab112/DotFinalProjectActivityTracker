@@ -76,11 +76,11 @@ const MyForm: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto flex items-center justify-center h-screen">
-      <div className="flex max-w-7xl h-auto w-full bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-xl overflow-hidden">
+    <div className=" flex items-center justify-center h-screen bg-black w-full ">
+      <div className="flex max-w-7xl h-auto w-full bg-transparent rounded-lg shadow-xl overflow-hidden border-green-400 border-2">
         {/* Form Section */}
-        <div className="w-1/3  flex flex-col justify-center space-y-6 bg-white p-4">
-          <h2 className="text-3xl font-bold text-gray-800 text-center">
+        <div className="w-1/3  flex flex-col justify-center space-y-6 bg-trnsparent p-4">
+          <h2 className="text-3xl font-bold text-gray-100 text-center">
             Create an Account
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -91,7 +91,7 @@ const MyForm: React.FC = () => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border bg-transparent border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <input
               type="email"
@@ -100,7 +100,7 @@ const MyForm: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border bg-transparent border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <input
               type="password"
@@ -109,7 +109,7 @@ const MyForm: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border bg-transparent  border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <button
               type="submit"
@@ -136,24 +136,25 @@ const MyForm: React.FC = () => {
             Signup with Google
           </a>
           <p className="text-sm text-center text-gray-700">
-                        Alread have an account?{" "}
-                        <Link to="/login" className="text-blue-600 hover:underline">
-                          login here
-                        </Link>
-                      </p>
+            Alread have an account?{" "}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              login here
+            </Link>
+          </p>
         </div>
 
         {/* Illustration Section */}
         <div className="w-1/2 p-6 flex flex-col justify-center items-center bg-cover bg-center">
           <h3 className="text-4xl font-bold text-white text-center">
-            Welcome to Our Community
+            Welcome to Gym Tracker
           </h3>
           <p className="text-lg text-white mt-4 text-center">
-            Join us and Store YOur world.Store, Read, and grow toget Here.
+            Track your workouts, monitor progress, and achieve your fitness
+            goals. Let’s build strength together!
           </p>
           <div className="mt-6">
-            <span role="img" aria-label="sparkles" className="text-6xl">
-              ✨
+            <span role="img" aria-label="muscle" className="text-6xl">
+              💪
             </span>
           </div>
         </div>

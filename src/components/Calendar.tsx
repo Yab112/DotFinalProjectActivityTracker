@@ -23,12 +23,10 @@ import {
 } from "./ui/dialog";
 import AddExerciseForm from "./AddExerciseForm";
 
-interface CalendarProps {
-  onSelectDate: (date: Date) => void;
-}
 
-export const Calendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+
+export const Calendar: React.FC = () => {  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null); // Track the selected date
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set today's time to 00:00 for comparison
@@ -51,7 +49,6 @@ export const Calendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
 
   const openDialog = (day: Date) => {
     setSelectedDate(day);
-    onSelectDate(day); // Call the provided handler
   };
 
   return (
@@ -113,7 +110,7 @@ export const Calendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
       {/* Single Dialog for the Selected Date */}
       {selectedDate && (
         <Dialog open={!!selectedDate} onOpenChange={() => setSelectedDate(null)}>
-          <DialogContent className="backdrop-blur-3xl">
+          <DialogContent className="backdrop-blur-3xl max-w-4xl">
             <DialogHeader>
               <DialogTitle className="text-lg font-semibold text-center">
                 Add Exercise for{" "}

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "../hooks/use-toast";
+import { set } from "date-fns";
+import Loader from "./Loader";
 
 interface AddExerciseFormProps {
   date: Date;
@@ -11,6 +14,7 @@ interface AddExerciseFormProps {
 
 const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
   const [name, setName] = useState("");
+  const [loader,setloader] = useState(false);
   const [category, setCategory] = useState("");
   const [duration, setDuration] = useState<number | "">("");
   const [intensity, setIntensity] = useState("Medium");
@@ -23,11 +27,23 @@ const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Get userId from local storage
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      toast({
+        title: "Error",
+        description: "User ID not found. Please log in again.",
+      });
+      return;
+    }
+
     const newExercise = {
+      userId,
       name,
       category,
       duration: typeof duration === "string" ? 0 : duration,
-      date,
+      date: date.toISOString(),
       intensity,
       caloriesBurned: typeof caloriesBurned === "string" ? 0 : caloriesBurned,
       notes,
@@ -36,20 +52,29 @@ const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
     };
 
     try {
-      toast({
-        title: "Exercise Added",
-        description: `${name} on ${date} has been added to your activities.`,
-      });
-      // Clear the form fields
-      setName("");
-      setCategory("");
-      setDuration("");
-      setIntensity("Medium");
-      setCaloriesBurned("");
-      setNotes("");
-      setType("Indoor");
-      setLocation("");
+      setloader(true);
+      // Make a POST request to the API
+      const response = await axios.post("http://localhost:5001/api/exercises", newExercise);
+
+      if (response.status === 201) {
+        setloader(false);
+        toast({
+          title: "Exercise Added",
+          description: `${name} on ${date.toDateString()} has been added to your activities.`,
+        });
+        // Clear the form fields
+        setName("");
+        setCategory("");
+        setDuration("");
+        setIntensity("Medium");
+        setCaloriesBurned("");
+        setNotes("");
+        setType("Indoor");
+        setLocation("");
+      }
     } catch (error) {
+      setloader(false);
+      console.error("Error adding exercise:", error);
       toast({
         title: "Error",
         description: "Failed to add the exercise. Please try again.",
@@ -58,7 +83,7 @@ const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2 max-w-4xl relative">
       <div>
         <Label htmlFor="date" className="text-slate-200">Date</Label>
         <Input
@@ -153,6 +178,7 @@ const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
           Add Exercise
         </Button>
       </div>
+      {loader && <Loader />}
     </form>
   );
 };
