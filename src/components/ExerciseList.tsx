@@ -33,7 +33,7 @@ const BookList: React.FC = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:5001/api/exercises/${userId}`
+          `https://dot-final-project-exercise-tracker-backend.vercel.app/api/exercises/${userId}`
         );
 
         console.log("Exercises:", response.data);

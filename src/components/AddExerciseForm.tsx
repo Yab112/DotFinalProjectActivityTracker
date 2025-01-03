@@ -54,7 +54,7 @@ const AddExerciseForm: React.FC<AddExerciseFormProps> = ({ date }) => {
     try {
       setloader(true);
       // Make a POST request to the API
-      const response = await axios.post("http://localhost:5001/api/exercises", newExercise);
+      const response = await axios.post("https://dot-final-project-exercise-tracker-backend.vercel.app/api/exercises", newExercise);
 
       if (response.status === 201) {
         setloader(false);
